@@ -24,6 +24,10 @@ contract MyContract {
         return address(this).balance;
     }
 
+    function getCreator() public view returns(address) {
+        return owner;
+    }
+
     function kill() public{
         // Not properly working
         // calling selfdestruct(address) sends all of the contract's current balance to address.
