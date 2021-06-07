@@ -8,6 +8,7 @@ contract BasicStorage {
         state = _state;
     }
 
+    // return a value (state) that is part of the contract’s persistent storage.
     function getValue() public view returns (uint256) {
         return state;
     }
