@@ -2,20 +2,23 @@ pragma solidity ^0.5.1;
 
 contract CommunityChest {
 
-    constructor() public payable {
+    event Received(address, uint);
+    event Balance(uint);
 
-    }
+    uint contractBalance = address(this).balance;
+    mapping (address => uint256) balances;
 
-    function withdraw() public {
+    function withdrawAll() public {
+        contractBalance = 0;
         msg.sender.transfer(address(this).balance);
     }
 
-    function deposit(uint256 amount) payable public {
-        require(msg.value == amount);
-        // nothing else to do!
+    function deposit() payable public {
+        contractBalance += msg.value;
+        emit Balance(contractBalance);
     }
 
-    function getBalance() public view returns (uint256) {
-        return address(this).balance;
+    function getBalance() public view returns (uint) {
+        return contractBalance;
     }
 }
