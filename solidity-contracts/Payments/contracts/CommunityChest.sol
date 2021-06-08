@@ -1,6 +1,11 @@
 pragma solidity ^0.5.1;
 
 contract CommunityChest {
+
+    constructor() public payable {
+
+    }
+
     function withdraw() public {
         msg.sender.transfer(address(this).balance);
     }
