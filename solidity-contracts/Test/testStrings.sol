@@ -10,6 +10,6 @@ contract testStrings {
     }
     
     function needleInAHaystack(string _base, string _value) returns (int) {
-        return _base.stringPos("t");
+        return _base.stringPos(_value);
     }
 }

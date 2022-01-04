@@ -5,3 +5,5 @@
 /Identity/build/
 /Tokens/build/
 /Utils/build/
+.idea/
+node_modules/
