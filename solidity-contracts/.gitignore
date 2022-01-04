@@ -7,3 +7,4 @@
 /Utils/build/
 .idea/
 node_modules/
+node_modules/*
