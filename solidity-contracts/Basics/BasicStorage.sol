@@ -1,15 +1,14 @@
-pragma solidity ^0.5.1;
+pragma solidity ^0.6.0;
 
-contract BasicStorage {
+contract Storage {
 
-    uint256 state;  // represents persistent contract storage
+    string public data;
 
-    constructor (uint256 _state) public {
-        state = _state;
+    function getData() view external returns(string memory) {
+        return data;
     }
 
-    // return a value (state) that is part of the contract’s persistent storage.
-    function getValue() public view returns (uint256) {
-        return state;
+    function setData(string calldata _data) external {
+        data = _data;
     }
 }

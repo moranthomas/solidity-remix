@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 
-import "browser/ERC20.sol";
+import "./ERC20.sol";
 
 contract ThomasToken is ERC20 {
     
@@ -8,7 +8,7 @@ contract ThomasToken is ERC20 {
     string public constant name = "Thomas Token";
     uint8 public constant decimals = 18;
     
-    uint public constant __totalSupply = 1000;
+    uint public constant __totalSupply = 1000;          // Disallowed in later versions of Solidity
     mapping (address => uint) private __balanceOf;
     mapping (address => mapping (address => uint)) private __allowances;
     
@@ -36,7 +36,6 @@ contract ThomasToken is ERC20 {
             __balanceOf[_from] >= _value) {
             __balanceOf[_from] -= _value;
             __balanceOf[_to] += _value;
-            // Missed from the video
             __allowances[_from][msg.sender] -= _value;
             return true;
         }

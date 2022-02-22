@@ -8,3 +8,7 @@
 .idea/
 node_modules/
 node_modules/*
+Tokens/artifacts/
+artifacts/
+.deps
+.DS_Store
