@@ -1,12 +1,15 @@
 //SPDX-License-Identifier: MIT
 pragma solidity  >=0.6.0 <0.9.0;
 
+import '../Tokens/FlemingToken.sol';
+
 contract ProofOfExperiment {
 
     event ProofCreated(uint256 indexed experimentId, bytes32 experimentProof);
     event ProofValidated(uint256 indexed experimentId, bytes32 experimentProof);
 
     address public owner;
+    address flemingTokenAddress;
     mapping(uint256 => bytes32) proofsById;
     mapping(address => uint256) reputationByAddress;  //care -- 256 overflow
     mapping(address => uint256) tokenBalanceByAddress;  //care -- 256 overflow
@@ -26,8 +29,9 @@ contract ProofOfExperiment {
         _;
     }
 
-    constructor() {
+    constructor(address _flemingTokenAddress) {
         owner = msg.sender;
+        flemingTokenAddress = _flemingTokenAddress;
     }
 
     function storeProof(uint256 experimentId, bytes32 experimentProof) public noProofExistsYet(experimentId)
@@ -55,6 +59,8 @@ contract ProofOfExperiment {
                 reputationByAddress[msg.sender]++;
                 //mint Fleming Token rewards.
                 tokenBalanceByAddress[msg.sender] += 1000;
+                FlemingToken fleming = FlemingToken(flemingTokenAddress);
+                fleming.mint(msg.sender, 1000);
                 emit ProofValidated(_experimentId, _experimentProof);
                 return true;
             }
@@ -74,6 +80,14 @@ contract ProofOfExperiment {
 
     function getTokenBalanceByAddress(address _address) public view returns (uint256) {
         return tokenBalanceByAddress[_address];
+    }
+
+    function setFlemingTokenAddress(address _flemingAddress) onlyOwner external { 
+        flemingTokenAddress = _flemingAddress;
+    }
+
+    function getFlemingTokenAddress() onlyOwner external view returns(address) { 
+        return flemingTokenAddress;
     }
 
     /* // check if a document has been notarized
